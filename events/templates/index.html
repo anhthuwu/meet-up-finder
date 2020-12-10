@@ -1,0 +1,30 @@
+{% extends "main_app/base_generic.html" %} {% block content %}
+<script>
+  $(document).ready(function () {
+    $("#myToast").toast("show");
+  });
+</script>
+<div class="container-fluid h-100">
+  {% if invalid_location_toast %}
+  <div
+    class="toast"
+    id="myToast"
+    style="position: absolute; left: 40vw; z-index: 100"
+    data-delay="8000"
+  >
+    <div class="toast-header">
+      <strong class="mr-auto">Invalid Form</strong>
+      <small>Just now</small>
+      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">
+        &times;
+      </button>
+    </div>
+    <div class="toast-body">{{ invalid_location_toast }}</div>
+  </div>
+  {% endif %}
+  <div class="row h-100">
+    <div class="col-3 bg-light">{% include 'search_index.html'%}</div>
+    <div class="col bg-light">{% include 'map.html'%}</div>
+  </div>
+</div>
+{% endblock %}

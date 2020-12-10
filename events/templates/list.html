@@ -1,0 +1,66 @@
+
+{% if object_list %}
+    {% if printAll %}
+        <h1>All Events</h1>
+    {% else %}
+        <h1>Search Results</h1>
+    {% endif %}
+    <ul class="list-group">
+        {% for event in object_list %}
+        <li class="list-group-item">
+                <div class="row h-100">
+                    <div class="col bg-light" >
+                        <button class="btn btn-light" type="button" data-toggle="collapse" data-target="#event{{event.id}}">
+                            <h7 class="text" style="font-size: x-large">{{ event.name }}</h7>
+                    </div>
+                    <div class="col bg-light" style="text-align: right">
+                        <button onclick="saveEvent({{ event.id }})" class="btn {% if event.addedTOMyEvent %} star-filled {% else %} star {% endif %}">☆</button>
+                    </div>
+                </div>
+            </button>
+            <div class="collapse" id="event{{ event.id }}">
+                <br><h7 class="text" style="color: rgb(105, 139, 139)"> ↪ Location: </h7> {{ event.location }} </br>
+                <br><h7 class="text" style="color: rgb(105, 139, 139)"> ↪ Date: </h7> {{ event.date }} </br>
+                <br><h7 class="text" style="color: rgb(105, 139, 139)"> ↪ Time: </h7> {{ event.time }} </br>
+                <br><h7 class="text" style="color: rgb(105, 139, 139)"> ↪ Host: </h7> {{ event.host }} </br>
+                <br><h7 class="text" style="color: rgb(105, 139, 139)"> ↪ Rating: </h7> {{ event.rating }} </br>
+                <br><h7 class="text" style="color: rgb(105, 139, 139)"> ↪ Description: </h7> {{ event.description }} </br>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+<style type="text/css">
+    .star{
+        padding-top: 0px; 
+        padding-bottom: 0px; 
+        padding-left: 0px; 
+        padding-right: 0px; 
+        font-size: xx-large; 
+        text-decoration-color: mediumaquamarine;
+    }
+    .star-filled{
+        padding-top: 0px; 
+        padding-bottom: 0px; 
+        padding-left: 0px; 
+        padding-right: 0px; 
+        font-size: xx-large; 
+        text-decoration-color: mediumaquamarine;
+        color: red
+    }
+    .list-group-item{
+        padding-top: 3px; 
+        padding-bottom: 3px; 
+        padding-left: 3px; 
+        padding-right: 3px;
+    }
+</style>
+<script>
+   function saveEvent(id){
+       console.log(id)
+        axios.post('addToEvent', {'event_id': id}).then((response)=>{
+        console.log('success', response)
+        history.go(0)
+    })
+   }
+</script>

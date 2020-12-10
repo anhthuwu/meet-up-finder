@@ -1,0 +1,50 @@
+
+{% if object_drop %}
+<div class="list-group" id="list">
+{% for event in object_drop %}
+  <div class="dropdownclass list-group-item list-group-item-action flex-column align-items-start active">
+    <form action={% url 'list' %} method='POST' onclick="submit()">
+            <div class="form-group d-flex w-100 justify-content-between">
+                <input name="q"type="hidden" value="{{event.id}}">
+                <h5 class="mb-1">{{event.name}}</h5>
+                <small>{{event.date}}</small>
+            </div>
+            <p class="mb-1">{{event.description}}</p>
+            <small>{{event.host}}</small>
+        {% csrf_token %}
+    </form> 
+  </div>
+{% endfor %}
+</div>
+{% endif %}
+<script>
+    function dropdown_function(){
+       var inputVal = document.getElementById("eventSearchBar").value;
+       filter = inputVal.toUpperCase();
+       var table = document.getElementById("list");
+
+       var item = table.getElementsByClassName("dropdownclass");
+
+       for (i = 0; i<item.length;i++)
+       {
+            name = item[i].getElementsByTagName("h5")[0].innerText
+            date = item[i].getElementsByTagName("small")[0].innerText
+            description = item[i].getElementsByTagName("p")[0].innerText
+            host = item[i].getElementsByTagName("small")[1].innerText
+            if ((name.toUpperCase().indexOf(filter) > -1 || date.toUpperCase().indexOf(filter) > -1 || host.toUpperCase().indexOf(filter) > -1 || description.toUpperCase().indexOf(filter) > -1) && filter != "") {
+                item[i].style.display = "block";
+             } else {
+                item[i].style.display = "none";
+             }
+       }
+  }
+</script>
+<style type='text/css'>
+.dropdownclass{
+  display:none; 
+  cursor:pointer;
+}
+.dropdownclass: hover{
+  background-color: yellow;
+}
+</style>

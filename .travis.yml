@@ -1,0 +1,16 @@
+language: python
+python:
+- 3.7.6
+install:
+- pip install -r requirements-travis.txt
+script:
+- python manage.py makemigrations
+- python manage.py migrate
+- python manage.py test
+deploy:
+  provider: heroku
+  api_key:
+    secure: jM8nJ8bpUqRmsSxrsHHU4vj8jqDAMqRiuEXg3oXch8pmPub+zYDUMJfrgYrIoQdiQo46Os7lFrbxsqGNcgAzVc+frrKYFj8EeI3Pp2XG32bp6+xfkCw+9dSG6BMOoSrg8KTnK5SoxVv4GOI9WKDASgVi3iKe3z9zKwH85VJ9SQ1E1HjgTM+0GN6iMYjxmYnocLV8XeOGpHhgEom4TgroMxevdsX2ZijXvrPS43B75BNmthortI2t/sMI6CZsiU/jFAqhrCG1+NkqdQlvVtLiimdMKd/mR+edgM4KLo5MRHJL0wuFGL/9XgNtTKlRrauwipL10TYhdE6E/Z/6rmuaTd2FbGpUeTaP6nBz+pXSw/XzQk/CTZGPOPaoqR9XKI68KiJxablX7ZM4Rpi+XmtKdBYeVKSHkFcmD5eyl+N7RGR8f9HbQ5ZI8loOCvbL4NLXkk39NQCvVtPdApPQClpav+X69tPmTb0LyXs5MkwVazXMjRwxHOG5JWWIIwnX9W56lvvM++aQolY2n7tCPmvnHJcsexEig6JJ15Hg18Trdtez9b7QrQuukhgFZ4NswQOtRKc3EvBCK9UWcqhI6DXvgp9wbusS1YWBQ2hYN2Rv3sUgaVQ4oZ4BC7ABC6pi/Xw2A7twISrkkSZW2tt/YVQJcJ2e4eI1vPjwpzaUFag7Cv8=
+  app: noreply231
+  on:
+    repo: uva-cs3240-f20/project-2-31

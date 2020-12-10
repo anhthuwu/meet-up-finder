@@ -1,0 +1,10 @@
+{% if postForm_enabled%}
+<h1>Post An Event</h1>
+{% load crispy_forms_tags %}
+
+<form action="{% url 'submit_post' %}" method="post">
+    {% csrf_token %}
+    {{form|crispy}}
+    <input type="submit" value="Submit"> 
+</form>
+{% endif %}

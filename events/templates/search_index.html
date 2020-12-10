@@ -1,0 +1,24 @@
+<div class='container'>
+    <div class="form-group mt-2">
+        <label for="eventSearchBar">Search Bar</label>
+        <div class="input-group mb-3">
+            <input type="text" onkeyup="dropdown_function()" class="form-control" id="eventSearchBar" placeholder='Search By Event Name/Location/etc'>
+            <div class="input-group-append">
+                <button onclick="location.href='{% url 'post_events' %}'" class="btn btn-primary"><span style="color: orange">+</span></button>
+            </div>
+        </div>
+        {% include 'drop_down.html'%}
+    </div>
+    <div class='mt-2 row'>
+        <button onclick="location.href='{% url 'list' %}'" class="btn btn-primary col"><span style="color: orange">View All Event</span></button>
+        <button onclick="location.href='{% url 'my_event' %}'" class="btn btn-primary col"><span style="color: orange">View Starred Event</span></button>
+        <button onclick="location.href='{% url 'near_me' %}'" class="btn btn-primary col"><span style="color: orange">View Events Near Me</span></button>
+    </div>
+
+    <div class='mt-2'>
+        {% include 'nearme.html'%}
+        {% include 'list.html'%}
+        {% include 'post_events.html'%}
+        {% include 'submit_post.html'%}
+    </div>
+</div>

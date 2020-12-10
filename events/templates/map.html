@@ -1,0 +1,103 @@
+<style type="text/css">
+  /* Always set the map height explicitly to define the size of the div
+         * element that contains the map. */
+  #map {
+    height: 100%;
+  }
+</style>
+<script>
+  let map;
+  const CVILLE_BOUNDS = {
+    north: 38.096569,
+    south: 37.992552,
+    west: -78.561004,
+    east: -78.428636,
+  };
+  const center = { lat: 38.0336, lng: -78.508 };
+
+  const map_data = JSON.parse("{{map_data|escapejs}}");
+  console.log("map", map_data);
+
+  function initMap() {
+    map = new google.maps.Map(document.getElementById("map"), {
+      center,
+      zoom: 14,
+      restriction: {
+        latLngBounds: CVILLE_BOUNDS,
+        strictBounds: false,
+      },
+      options: {
+        gestureHandling: "greedy",
+      },
+    });
+
+    const marker = [];
+    for (const i in map_data) {
+      const data = map_data[i].fields;
+      if (data.user) {
+        const icon = {
+          url:
+            "https://static.thenounproject.com/png/25718-200.png", // url
+          scaledSize: new google.maps.Size(50, 50), // scaled size
+          origin: new google.maps.Point(0, 0), // origin
+          anchor: new google.maps.Point(0, 0), // anchor
+        };
+        marker.push(
+          new google.maps.Marker({
+            position: { lat: data.lat, lng: data.lng },
+            map: map,
+            title: data.location,
+            icon: icon,
+          })
+        );
+      } else {
+        marker.push(
+          new google.maps.Marker({
+            position: { lat: data.lat, lng: data.lng },
+            map: map,
+            title: data.location,
+          })
+        );
+        marker[i].addListener("click", () => toggleBounce(i));
+      }
+    }
+  }
+  function toggleBounce(index) {
+    const data = map_data[index].fields;
+
+    $("#event").modal("show");
+    $("h3").html(data.name);
+    $("#date").html(data.date);
+    $("#description").html(data.description);
+    $("#host").html(data.host);
+    $("#location").html(data.location);
+    $("#time").html(data.time);
+    $("#rating").html(data.rating);
+  }
+</script>
+<div id="map"></div>
+<div class="modal fade" id="event">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title"></h3>
+        <button class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="date"></div>
+        <div id="description"></div>
+        <div id="host"></div>
+        <div id="location"></div>
+        <div id="time"></div>
+        <div id="rating"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
