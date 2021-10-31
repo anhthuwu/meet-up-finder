@@ -1,6 +1,6 @@
-# NoReply
+# Hoo's Meet
 
-*NoReply* is a project created by team 2-31 that intends to connect people by helping them find meet-ups of various types of events that happen nearby to attend. Users can post events as well as search for available events within a specified distance from their location.
+*Hoo's Meet* is a project created by team 2-31 that intends to connect people by helping them find meet-ups of various types of events that happen nearby to attend. Users can post events as well as search for available events within a specified distance from their location.
 
 ## Demo
 Please visit our website https://noreply231.herokuapp.com/. 
